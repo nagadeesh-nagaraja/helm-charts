@@ -6,14 +6,14 @@
 {{- $version := index $folders 3}}
 {{- $vendor := index $folders 1 }}
 {{- $model := index $folders 2 }}
-{{- $version := replace "_" "-" $version}}
+{{- $version := replace "_" "-" $version }}
 {{- $version := replace ".yaml" "" $version}}
 
 {{ range $path, $_ := $.Files.Glob (printf "bios_versions/%s/%s/*.yaml" $vendor $model) -}}
 apiVersion: metal.ironcore.dev/v1alpha1
 kind: BIOSVersionSet
 metadata:
-  name: {{ $vendor }}-{{ $model }}-{{ $version }}
+  name: {{ lower $vendor }}-{{ lower $model }}-{{ lower $version }}
 spec:
   serverSelector:
     matchLabels:
